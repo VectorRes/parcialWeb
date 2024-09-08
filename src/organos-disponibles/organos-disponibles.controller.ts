@@ -19,16 +19,16 @@ export class OrganosDisponiblesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.organosDisponiblesService.findOne(+id);
+    return this.organosDisponiblesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrganosDisponibleDto: UpdateOrganosDisponibleDto) {
-    return this.organosDisponiblesService.update(+id, updateOrganosDisponibleDto);
+    return this.organosDisponiblesService.update(id, updateOrganosDisponibleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.organosDisponiblesService.remove(+id);
+    return this.organosDisponiblesService.remove(id);
   }
 }

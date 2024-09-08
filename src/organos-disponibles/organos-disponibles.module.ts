@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { OrganosDisponiblesService } from './organos-disponibles.service';
 import { OrganosDisponiblesController } from './organos-disponibles.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from 'src/cliente/entities/cliente.entity';
-import { Proveedor } from 'src/proveedor/entities/proveedor.entity';
+import { OrganosDisponible } from './entities/organos-disponible.entity';
+import { GarantiaModule } from 'src/garantia/garantia.module';
+import { ClienteModule } from 'src/cliente/cliente.module';
+import { Garantia } from 'src/garantia/entities/garantia.entity';
 
 @Module({
   controllers: [OrganosDisponiblesController],
   providers: [OrganosDisponiblesService],
-  imports: [TypeOrmModule.forFeature([Cliente,Proveedor])],
+  imports: [TypeOrmModule.forFeature([OrganosDisponible, Garantia]), GarantiaModule],
 })
 export class OrganosDisponiblesModule {}

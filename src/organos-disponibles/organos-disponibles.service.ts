@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrganosDisponibleDto } from './dto/create-organos-disponible.dto';
 import { UpdateOrganosDisponibleDto } from './dto/update-organos-disponible.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { OrganosDisponible } from './entities/organos-disponible.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class OrganosDisponiblesService {
-  create(createOrganosDisponibleDto: CreateOrganosDisponibleDto) {
-    return 'This action adds a new organosDisponible';
+  constructor(@InjectRepository(OrganosDisponible) private readonly organosDisponibleRepository: Repository<OrganosDisponible>){}
+  async create(createOrganosDisponibleDto: CreateOrganosDisponibleDto) {
+    const organo= await this.organosDisponibleRepository.create(createOrganosDisponibleDto);
+    await this.organosDisponibleRepository.save(organo);
+    return organo;
   }
 
-  findAll() {
-    return `This action returns all organosDisponibles`;
+  async findAll() {
+    const organo= await this.organosDisponibleRepository.find();
+    return organo;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organosDisponible`;
+  async findOne(id: string) {
+    const organo= await this.organosDisponibleRepository.findOneBy({id:id});
+    if(!organo){
+      throw new NotFoundException("Organo no encontrado")
+    }
+    return organo;
   }
 
-  update(id: number, updateOrganosDisponibleDto: UpdateOrganosDisponibleDto) {
-    return `This action updates a #${id} organosDisponible`;
+  async update(id: string, updateOrganosDisponibleDto: UpdateOrganosDisponibleDto) {
+    const organo= await this.organosDisponibleRepository.preload({id:id, ...updateOrganosDisponibleDto});
+    if(!organo){
+      throw new NotFoundException("Organo no encontrado")
+    }
+    await this.organosDisponibleRepository.save(organo);
+    return organo;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} organosDisponible`;
+  async remove(id: string) {
+    const organo= await this.organosDisponibleRepository.delete({id:id});
+    return organo;
   }
 }
