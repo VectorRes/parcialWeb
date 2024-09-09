@@ -14,10 +14,6 @@ export class CreateOrganosDisponibleDto {
 
     @IsNumber()
     precio: string
-    
-    @IsObject()
-    @IsEmpty()
-    cliente: Cliente;
 
     @IsObject()
     proveedor: Proveedor;

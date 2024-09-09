@@ -4,6 +4,8 @@ import { UpdateOrganosDisponibleDto } from './dto/update-organos-disponible.dto'
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrganosDisponible } from './entities/organos-disponible.entity';
 import { Repository } from 'typeorm';
+import { Cliente } from 'src/cliente/entities/cliente.entity';
+import { anadirClienteDto } from './dto/anadirCliente.dto';
 
 @Injectable()
 export class OrganosDisponiblesService {
@@ -38,6 +40,15 @@ export class OrganosDisponiblesService {
 
   async remove(id: string) {
     const organo= await this.organosDisponibleRepository.delete({id:id});
+    return organo;
+  }
+
+  async agregarCliente(anadirClienteDto: anadirClienteDto, id :string){
+    const organo = await this.organosDisponibleRepository.preload({id:id,... anadirClienteDto})
+    if(!organo){
+      throw new NotFoundException("Organo no encontrado")
+    }
+    this.organosDisponibleRepository.save(organo);
     return organo;
   }
 }
