@@ -10,6 +10,5 @@ async function bootstrap() {
     forbidNonWhitelisted: true
   }));
   await app.listen(3000);
-  await app.listen(3000);
 }
 bootstrap();

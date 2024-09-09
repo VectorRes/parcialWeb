@@ -4,13 +4,22 @@ import { OrganosDisponible } from 'src/organos-disponibles/entities/organos-disp
 @Entity()
 export class Proveedor {
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column()
-    apodo: string;
+    nombre: string;
 
     @Column()
     contacto: string;
+
+    @Column()
+    localizacion: string;
+
+    @Column()
+    correoElectronico: string;
+
+    @Column()
+    contrasena: string;
 
     @OneToMany(() => OrganosDisponible, organosDisponibles => organosDisponibles.proveedor)
     organosDisponibles: OrganosDisponible[];

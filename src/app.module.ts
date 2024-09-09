@@ -6,6 +6,8 @@ import { ClienteModule } from './cliente/cliente.module';
 import { OrganosDisponiblesModule } from './organos-disponibles/organos-disponibles.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GarantiaModule } from './garantia/garantia.module';
+import { RelocalizacionModule } from './relocalizacion/relocalizacion.module';
 
 
 
@@ -21,7 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ProveedorModule, ClienteModule, OrganosDisponiblesModule,
+    ProveedorModule, ClienteModule, OrganosDisponiblesModule, GarantiaModule, RelocalizacionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
