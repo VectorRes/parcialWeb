@@ -11,7 +11,7 @@ export class Garantia {
     descripcion: string;
 
     @Column()
-    periodoDeValidez: string;
+    periodoDeValidez: number;
 
     @OneToOne(() => OrganosDisponible, organoDisponible => organoDisponible.garantia) 
     organoDisponible: OrganosDisponible
