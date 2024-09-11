@@ -27,4 +27,8 @@ export class CreateClienteDto {
     @IsDate()
     fechaNacimiento: Date;
 
+    @IsString()
+    @MinLength(3)
+    pais:string;
+
 }

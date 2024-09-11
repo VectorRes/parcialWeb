@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrganosDisponible } from "src/organos-disponibles/entities/organos-disponible.entity";
-import { Relocalizacion } from "src/relocalizacion/entities/relocalizacion.entity";
 
 @Entity()
 export class Cliente {
@@ -25,8 +24,8 @@ export class Cliente {
     @Column({type: Date, nullable:false})
     fechaNacimiento: Date;
 
-    @OneToMany(() => Relocalizacion, relocalizacion=> relocalizacion.cliente)
-    relocalizaciones: Relocalizacion[];
+    @Column()
+    pais: string;
 
     @OneToMany(() => OrganosDisponible, organo => organo.cliente)
     organos: OrganosDisponible[];

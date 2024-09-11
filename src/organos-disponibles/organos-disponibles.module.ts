@@ -10,6 +10,6 @@ import { Garantia } from 'src/garantia/entities/garantia.entity';
 @Module({
   controllers: [OrganosDisponiblesController],
   providers: [OrganosDisponiblesService],
-  imports: [TypeOrmModule.forFeature([OrganosDisponible, Garantia]), GarantiaModule],
+  imports: [TypeOrmModule.forFeature([OrganosDisponible, Garantia]), GarantiaModule, ClienteModule],
 })
 export class OrganosDisponiblesModule {}

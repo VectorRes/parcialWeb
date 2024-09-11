@@ -2,6 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProveedorService } from './proveedor.service';
 import { CreateProveedorDto } from './dto/create-proveedor.dto';
 import { UpdateProveedorDto } from './dto/update-proveedor.dto';
+import { LoginProveedorDto } from './dto/loginProveedor-dto';
+import { UseGuards } from '@nestjs/common';
+import { ProveedorJwtAuthGuard } from 'src/guards/guards';
+import { OwnProveedorDataGuard } from './guard/ownProveedorData.guard';
 
 @Controller('proveedor')
 export class ProveedorController {
@@ -23,12 +27,14 @@ export class ProveedorController {
   }
 
   @Patch(':id')
+  @UseGuards(ProveedorJwtAuthGuard, OwnProveedorDataGuard)
   update(@Param('id') id: string, @Body() updateProveedorDto: UpdateProveedorDto) {
     return this.proveedorService.update(id, updateProveedorDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.proveedorService.remove(id);
+
+  @Post('login')
+  login(@Body() loginProveedorDto: LoginProveedorDto) {
+    return this.proveedorService.login(loginProveedorDto);
   }
 }

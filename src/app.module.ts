@@ -7,7 +7,6 @@ import { OrganosDisponiblesModule } from './organos-disponibles/organos-disponib
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GarantiaModule } from './garantia/garantia.module';
-import { RelocalizacionModule } from './relocalizacion/relocalizacion.module';
 
 
 
@@ -23,7 +22,7 @@ import { RelocalizacionModule } from './relocalizacion/relocalizacion.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ProveedorModule, ClienteModule, OrganosDisponiblesModule, GarantiaModule, RelocalizacionModule,
+    ProveedorModule, ClienteModule, OrganosDisponiblesModule, GarantiaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

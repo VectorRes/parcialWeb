@@ -4,15 +4,16 @@ import { UpdateOrganosDisponibleDto } from './dto/update-organos-disponible.dto'
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrganosDisponible } from './entities/organos-disponible.entity';
 import { Repository } from 'typeorm';
-import { Cliente } from 'src/cliente/entities/cliente.entity';
-import { anadirClienteDto } from './dto/anadirCliente.dto';
+import { ClienteService } from 'src/cliente/cliente.service';
+import { Proveedor } from 'src/proveedor/entities/proveedor.entity';
 
 @Injectable()
 export class OrganosDisponiblesService {
-  constructor(@InjectRepository(OrganosDisponible) private readonly organosDisponibleRepository: Repository<OrganosDisponible>){}
-  async create(createOrganosDisponibleDto: CreateOrganosDisponibleDto) {
+  constructor(@InjectRepository(OrganosDisponible) private readonly organosDisponibleRepository: Repository<OrganosDisponible>,
+  private readonly clienteService: ClienteService){}
+  async create(createOrganosDisponibleDto: CreateOrganosDisponibleDto, proveedor: Proveedor) {
     const organo= await this.organosDisponibleRepository.create(createOrganosDisponibleDto);
-    await this.organosDisponibleRepository.save(organo);
+    await this.organosDisponibleRepository.save({...organo,proveedor});
     return organo;
   }
 
@@ -42,13 +43,7 @@ export class OrganosDisponiblesService {
     const organo= await this.organosDisponibleRepository.delete({id:id});
     return organo;
   }
-
-  async agregarCliente(anadirClienteDto: anadirClienteDto, id :string){
-    const organo = await this.organosDisponibleRepository.preload({id:id,... anadirClienteDto})
-    if(!organo){
-      throw new NotFoundException("Organo no encontrado")
-    }
-    this.organosDisponibleRepository.save(organo);
-    return organo;
-  }
+  
+  
+  
 }

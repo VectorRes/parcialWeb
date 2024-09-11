@@ -1,4 +1,4 @@
-import { IsEmpty, IsNumber, IsObject, IsString, MinLength } from "class-validator";
+import { IsEmpty, IsNumber, IsObject, IsOptional, IsString, MinLength } from "class-validator";
 import { Cliente } from "src/cliente/entities/cliente.entity";
 import { Garantia } from "src/garantia/entities/garantia.entity";
 import { Proveedor } from "src/proveedor/entities/proveedor.entity";
@@ -12,12 +12,14 @@ export class CreateOrganosDisponibleDto {
     @MinLength(1)
     tipoOrgano : string;
 
-    @IsNumber()
+    @IsString()
     precio: string
 
     @IsObject()
-    proveedor: Proveedor;
-
-    @IsObject()
+    @IsOptional()
     garantia: Garantia;
+    
+    @IsObject()
+    @IsOptional()
+    cliente: Cliente;
 }
